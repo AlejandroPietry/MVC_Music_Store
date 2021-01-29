@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MVCMusicStore.Models;
 using System;
@@ -11,16 +12,19 @@ namespace MVCMusicStore.Controllers
 {
     public class HomeController : Controller
     {
+        private MusicStoreEntities _storeDB;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MusicStoreEntities storeDb)
         {
             _logger = logger;
+            _storeDB = storeDb;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var albums = _storeDB.Tab_Album.Include(a => a.Artist);
+            return View( await albums.ToListAsync());
         }
 
         public IActionResult Privacy()

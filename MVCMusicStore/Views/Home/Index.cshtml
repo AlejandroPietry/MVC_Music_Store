@@ -1,9 +1,25 @@
-﻿@{
+﻿@model List<Album>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="container-fluid d-flex flex-wrap">
+    @foreach (Album album in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="@album.AlbumArtUrl" alt="Imagem da capa." />
+            <div class="card-body">
+                <h6>@album.Title</h6>
+                <p>R$ @album.Price</p>
+                <p>Artist: @album.Artist.Name</p>
+            </div>
+            <div class="card-footer">
+                <a href="@Url.Action("Details","Store", new {id = album.AlbumId})">
+                    <button class="btn btn-primary">Comprar</button>
+                </a>
+            </div>
+        </div>
+    }
+
 </div>
-<h1>Ale aqui</h1>
