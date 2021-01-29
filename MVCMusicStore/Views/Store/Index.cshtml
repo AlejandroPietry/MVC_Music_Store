@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Genre>    
+<!--Estamos usando um gênero IEnumerable<> em vez de uma lista<gênero> porque é mais genérica, 
+    permitindo alterar nosso tipo de modelo posteriormente para qualquer tipo de objeto que dê suporte à interface IEnumerable. -->
+
+<h3>Browse Genres</h3>
+
+<p>
+    Select from @Model.Count() genres:
+</p>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(item.Name, "Browse", new {genreName = item.Name })</li>
+    }
+</ul>

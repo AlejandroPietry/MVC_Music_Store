@@ -1,0 +1,14 @@
+﻿@model Genre
+
+<h2>Genre: @Model.Name</h2>
+<p>@Model.Description</p>
+
+
+<ul>
+    @foreach (var album in Model.Albums)
+    {
+        <li>
+            @Html.ActionLink(album.Title, "Details", new {id = album.AlbumId })
+        </li>
+    }
+</ul>
