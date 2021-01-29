@@ -13,5 +13,6 @@ O aplicativo que foi criado é uma loja de música simples. Há três partes pri
 - Asp Net Core<br/>
 - .Net 5.0
 - Bootstrap 4
+- SQL Server
 
 <span>👨‍💻 Não sou o cara do front, por isso ele é feinho! hahahaha<span/>
