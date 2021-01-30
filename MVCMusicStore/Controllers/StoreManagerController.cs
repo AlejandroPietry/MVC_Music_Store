@@ -9,6 +9,7 @@ using MVCMusicStore.Models;
 
 namespace MVCMusicStore.Controllers
 {
+    [Route("Album")]
     public class StoreManagerController : Controller
     {
         private readonly MusicStoreEntities _context;
@@ -19,6 +20,7 @@ namespace MVCMusicStore.Controllers
         }
 
         // GET: StoreManager
+        [Route("Listar")]
         public async Task<IActionResult> Index()
         {
             var musicStoreEntities = _context.Tab_Album.Include(a => a.Artist).Include(a => a.Genre);
@@ -26,6 +28,7 @@ namespace MVCMusicStore.Controllers
         }
 
         // GET: StoreManager/Details/5
+        [Route("Detalhes")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +49,7 @@ namespace MVCMusicStore.Controllers
         }
 
         // GET: StoreManager/Create
+        [Route("Adicionar")]
         public IActionResult Create()
         {
             ViewData["ArtistId"] = new SelectList(_context.Tab_Artist, "ArtistId", "ArtistId");
@@ -72,6 +76,7 @@ namespace MVCMusicStore.Controllers
         }
 
         // GET: StoreManager/Edit/5
+        [Route("Editar")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

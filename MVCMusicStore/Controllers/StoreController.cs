@@ -15,6 +15,7 @@ using System.Linq;
 
 namespace MVCMusicStore.Controllers
 {
+    [Route("BuscarGeneros")]
     public class StoreController : Controller
     {
         private readonly MusicStoreEntities _storeDB;
@@ -30,7 +31,8 @@ namespace MVCMusicStore.Controllers
             return View(genres);
         }
 
-        //GET /Store/Browse
+        //GET /Store/buscaporgeneros
+        [Route("DetalhesGenero")]
         public IActionResult Browse(string genreName)
         {
             Genre genreModel = _storeDB.Tab_Genre.Include("Albums")
@@ -39,6 +41,7 @@ namespace MVCMusicStore.Controllers
         }
 
         //GET /Store/Details/5
+        [Route("DetalhesProduto")]
         public IActionResult Details(int id)
         {
             Album album = _storeDB.Tab_Album.Include("Artist").First(x=> x.AlbumId == id);
