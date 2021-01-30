@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Genre>    
 <!--Estamos usando um gênero IEnumerable<> em vez de uma lista<gênero> porque é mais genérica, 
     permitindo alterar nosso tipo de modelo posteriormente para qualquer tipo de objeto que dê suporte à interface IEnumerable. -->
-
+@{ 
+    ViewData["Title"] = "Gêneros";
+}
 <h3>Browse Genres</h3>
 
 <p>
