@@ -9,7 +9,7 @@ using MVCMusicStore.Models;
 
 namespace MVCMusicStore.Controllers
 {
-    [Route("Album")]
+    [Route("Manager")]
     public class StoreManagerController : Controller
     {
         private readonly MusicStoreEntities _context;
@@ -19,8 +19,6 @@ namespace MVCMusicStore.Controllers
             _context = context;
         }
 
-        // GET: StoreManager
-        [Route("Listar")]
         public async Task<IActionResult> Index()
         {
             var musicStoreEntities = _context.Tab_Album.Include(a => a.Artist).Include(a => a.Genre);
@@ -62,6 +60,7 @@ namespace MVCMusicStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Adicionar")]
         public async Task<IActionResult> Create([Bind("AlbumId,GenreId,ArtistId,Title,Price,AlbumArtUrl")] Album album)
         {
             if (ModelState.IsValid)
@@ -76,7 +75,7 @@ namespace MVCMusicStore.Controllers
         }
 
         // GET: StoreManager/Edit/5
-        [Route("Editar")]
+        [Route("Editar/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,6 +98,7 @@ namespace MVCMusicStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Editar/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("AlbumId,GenreId,ArtistId,Title,Price,AlbumArtUrl")] Album album)
         {
             if (id != album.AlbumId)
@@ -132,6 +132,7 @@ namespace MVCMusicStore.Controllers
         }
 
         // GET: StoreManager/Delete/5
+        [Route("Deletar/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -154,6 +155,7 @@ namespace MVCMusicStore.Controllers
         // POST: StoreManager/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("Deletar/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var album = await _context.Tab_Album.FindAsync(id);

@@ -23,7 +23,6 @@ namespace MVCMusicStore.Controllers
         {
             _storeDB = storeDB;
         }
-        //GET /Store
         public IActionResult Index()
         {
             var genres = _storeDB.Tab_Genre.ToList();
