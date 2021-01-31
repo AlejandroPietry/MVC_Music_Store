@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCMusicStore.Migrations
 {
     [DbContext(typeof(MusicStoreEntities))]
-    [Migration("20210123030040_firstMigration")]
-    partial class firstMigration
+    [Migration("20210131132500_InitialMigrations")]
+    partial class InitialMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,8 @@ namespace MVCMusicStore.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("AlbumArtUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<int>("ArtistId")
                         .HasColumnType("int");
@@ -40,7 +41,9 @@ namespace MVCMusicStore.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
 
                     b.HasKey("AlbumId");
 

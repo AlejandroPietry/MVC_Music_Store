@@ -2,7 +2,7 @@
 
 namespace MVCMusicStore.Migrations
 {
-    public partial class firstMigration : Migration
+    public partial class InitialMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,9 +41,9 @@ namespace MVCMusicStore.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GenreId = table.Column<int>(type: "int", nullable: false),
                     ArtistId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AlbumArtUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    AlbumArtUrl = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true)
                 },
                 constraints: table =>
                 {

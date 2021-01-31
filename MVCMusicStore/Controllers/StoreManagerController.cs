@@ -50,8 +50,8 @@ namespace MVCMusicStore.Controllers
         [Route("Adicionar")]
         public IActionResult Create()
         {
-            ViewData["ArtistId"] = new SelectList(_context.Tab_Artist, "ArtistId", "ArtistId");
-            ViewData["GenreId"] = new SelectList(_context.Tab_Genre, "GenreId", "GenreId");
+            ViewData["ArtistName"] = new SelectList(_context.Tab_Artist, "ArtistName", "ArtistName");
+            ViewData["GenreName"] = new SelectList(_context.Tab_Genre, "GenreName", "GenreName");
             return View();
         }
 
@@ -164,6 +164,15 @@ namespace MVCMusicStore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult CreateArtist()
+        {
+            return Ok();
+        }
+
+        public IActionResult CreateGenre()
+        {
+            return Ok();
+        }
         private bool AlbumExists(int id)
         {
             return _context.Tab_Album.Any(e => e.AlbumId == id);
