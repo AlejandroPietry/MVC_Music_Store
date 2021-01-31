@@ -25,8 +25,9 @@ namespace MVCMusicStore.Models
         [Display(Name = "Url da imagem do album")]
         [StringLength(1024)]
         public string AlbumArtUrl { get; set; }
-
+        [Display(Name = "Genêro")]
         public Genre Genre { get; set; }
+        [Display(Name = "Artista")]
         public Artist Artist { get; set; }
     }
 }

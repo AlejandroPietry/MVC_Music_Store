@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCMusicStore.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MVCMusicStore.Controllers
 {
@@ -50,8 +48,8 @@ namespace MVCMusicStore.Controllers
         [Route("Adicionar")]
         public IActionResult Create()
         {
-            ViewData["ArtistName"] = new SelectList(_context.Tab_Artist, "ArtistName", "ArtistName");
-            ViewData["GenreName"] = new SelectList(_context.Tab_Genre, "GenreName", "GenreName");
+            ViewData["ArtistName"] = new SelectList(_context.Tab_Artist, "ArtistId", "Name");
+            ViewData["GenreName"] = new SelectList(_context.Tab_Genre, "GenreId", "Name");
             return View();
         }
 
@@ -164,15 +162,6 @@ namespace MVCMusicStore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult CreateArtist()
-        {
-            return Ok();
-        }
-
-        public IActionResult CreateGenre()
-        {
-            return Ok();
-        }
         private bool AlbumExists(int id)
         {
             return _context.Tab_Album.Any(e => e.AlbumId == id);
