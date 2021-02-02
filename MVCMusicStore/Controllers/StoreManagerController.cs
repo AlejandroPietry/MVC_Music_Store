@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCMusicStore.Models;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVCMusicStore.Controllers
 {
+    [Authorize]
     [Route("Manager")]
     public class StoreManagerController : Controller
     {

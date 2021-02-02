@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCMusicStore.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace MVCMusicStore
@@ -23,6 +24,8 @@ namespace MVCMusicStore
         {
             services.AddControllersWithViews();
             services.AddDbContext<MusicStoreEntities>(options => options.UseSqlServer(Configuration.GetConnectionString("master")));
+            //adicionando servico de cookie na aplicacao 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Login/Index");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +45,7 @@ namespace MVCMusicStore
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

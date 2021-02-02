@@ -10,6 +10,7 @@ namespace MVCMusicStore.Models
         public DbSet<Album> Tab_Album { get; set; }
         public DbSet<Artist> Tab_Artist { get; set; }
         public DbSet<Genre> Tab_Genre { get; set; }
+        public DbSet<Usuario> Tab_Usuario { get; set; }
 
         public MusicStoreEntities (DbContextOptions<MusicStoreEntities> options) :base (options)
         {
