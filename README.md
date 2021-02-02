@@ -16,3 +16,16 @@ O aplicativo que foi criado é uma loja de música simples. Há três partes pri
 - SQL Server
 
 <span>👨‍💻 Não sou o cara do front, por isso ele é feinho! hahahaha<span/>
+  
+  
+  
+  
+# 📸 Eu quero ibagens comandante Hamilton
+
+### Home Page
+
+<img src="https://user-images.githubusercontent.com/52106304/106388569-dfd24400-63bd-11eb-8858-02c619cf3514.png" width="800">
+
+### Gerenciamento da loja
+
+<img src="https://user-images.githubusercontent.com/52106304/106388714-91717500-63be-11eb-9505-d432323ea4a5.png" width="800">
