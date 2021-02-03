@@ -1,0 +1,23 @@
+﻿@model Artist
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateArtist">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="custom-control-label"></label>
+                <input type="text" class="form-control" asp-for="Name"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Criar</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

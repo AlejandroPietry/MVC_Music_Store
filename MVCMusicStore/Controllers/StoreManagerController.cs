@@ -164,6 +164,25 @@ namespace MVCMusicStore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Route("CriarArtista")]
+        public IActionResult CreateArtist()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("CriarArtista")]
+        public IActionResult CreateArtist([Bind("Name")] Artist artist)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            _context.Add(artist);
+            _context.SaveChangesAsync();
+            return  RedirectToAction(nameof(Index));
+        }
+
         private bool AlbumExists(int id)
         {
             return _context.Tab_Album.Any(e => e.AlbumId == id);
