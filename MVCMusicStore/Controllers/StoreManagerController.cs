@@ -183,6 +183,24 @@ namespace MVCMusicStore.Controllers
             return  RedirectToAction(nameof(Index));
         }
 
+        [Route("CriarGenero")]
+        public IActionResult CreateGenre()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("CriarGenero")]
+        public IActionResult CreateGenre([Bind("Name, Description")] Genre genre)
+        {
+            if (!ModelState.IsValid)
+                return View();
+            genre.Name = genre.Name.ToUpper();
+            _context.AddAsync(genre);
+            _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
         private bool AlbumExists(int id)
         {
             return _context.Tab_Album.Any(e => e.AlbumId == id);

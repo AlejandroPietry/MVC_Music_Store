@@ -12,9 +12,16 @@ namespace MVCMusicStore.Models
          */
         public int GenreId { get; set; }
 
-        [Display(Name = "Genre Name")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} não pode ser vazio.")]
+        [Display(Name = "Genêro")]
+        [StringLength(100)]
+        [DataType(DataType.Text)]
         public string Name { get; set; }
 
+        [Display(Name = "Descrição")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} não pode ser vazio.")]
+        [StringLength(5000, MinimumLength = 50, ErrorMessage = "{0} precisar ter entre {2} e {1}")]
+        [DataType(DataType.Text)]
         public string Description { get; set; }
         public List<Album> Albums { get; set; }
     }

@@ -7,7 +7,7 @@
 
 <p>
     <a asp-action="Create" class="btn btn-outline-info">Criar album</a>
-    <a  class="btn btn-outline-info">Adicionar gênero</a>
+    <a asp-action="CreateGenre" class="btn btn-outline-info">Adicionar gênero</a>
     <a asp-action="CreateArtist" class="btn btn-outline-info">adicionar Artista</a>
 </p>
 <table class="table">
@@ -38,7 +38,7 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    R$ @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Genre.Name)
@@ -47,9 +47,9 @@
                     @Html.DisplayFor(modelItem => item.Artist.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.AlbumId" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.AlbumId" class="btn btn-primary">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.AlbumId" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.AlbumId" class="btn btn-warning">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.AlbumId" class="btn btn-primary">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AlbumId" class="btn btn-danger">Deletar</a>
                 </td>
             </tr>
         }
