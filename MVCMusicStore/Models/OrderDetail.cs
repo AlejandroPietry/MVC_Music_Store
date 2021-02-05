@@ -9,7 +9,5 @@
         public decimal UnitPrice { get; set; }
         public virtual Album Album { get; set; }
         public virtual Genre Genre { get; set; }
-
-
     }
 }
