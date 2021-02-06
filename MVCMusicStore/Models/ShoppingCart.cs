@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +19,13 @@ namespace MVCMusicStore.Models
     
     public partial class ShoppingCart
     {
-        private MusicStoreEntities _context;
+        private MusicStoreEntities _contextDB;
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
         public ShoppingCart() { }
         public ShoppingCart(MusicStoreEntities context)
         {
-            _context = context;
+            _contextDB = context;
         }
         /// <summary>
         /// é um método estático que permite que nossos controladores obtenham um objeto de carrinho. 
@@ -40,9 +41,58 @@ namespace MVCMusicStore.Models
             return cart;
         }
 
+        //Helper method to simplify shopping cart calls
+        public static ShoppingCart GetCart(Controller controller)
+        {
+            return GetCart(controller.HttpContext);
+        }
+
+        //nos vamos usar o HttpContext para permitir os acessos aos cookies
         private string GetCartId(HttpContext context)
         {
-            throw new NotImplementedException();
+            if (context.Items[CartSessionKey] is null)
+            {
+                if (!string.IsNullOrEmpty(context.User.Identity.Name))
+                {
+                    context.Items[CartSessionKey] = context.User.Identity.Name;
+                }
+                else
+                {
+                    // Generate a new random GUID using System.Guid class
+                    Guid tempCartId = Guid.NewGuid();
+                    //Send tempCartId back to client as a cookie
+                    context.Items[CartSessionKey] = tempCartId.ToString();
+                }
+            }
+            return context.Items[CartSessionKey].ToString();
+        }
+
+        public void AddToCart(Album album)
+        {
+            //get the matching cart and album instances
+            var cartItem = _contextDB.Tab_Cart.SingleOrDefault(
+                c => c.CartId == ShoppingCartId 
+                && c.AlbumId == album.AlbumId);
+
+            if(cartItem is null)
+            {
+                //create a new cart item if no cart item exist 
+                cartItem = new Cart
+                {
+                    AlbumId = album.AlbumId,
+                    CartId = ShoppingCartId,
+                    Count = 1,
+                    DateCreated = DateTime.Now
+                };
+                _contextDB.Add(cartItem);
+            }
+            else
+            {
+                //If the item does exist in cart ,
+                //then add one to the quantity
+                cartItem.Count++;
+            }
+            _contextDB.SaveChangesAsync();
         }
     }
 }
