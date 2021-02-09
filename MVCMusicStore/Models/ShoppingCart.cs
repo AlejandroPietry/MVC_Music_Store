@@ -94,5 +94,30 @@ namespace MVCMusicStore.Models
             }
             _contextDB.SaveChangesAsync();
         }
+
+        public int RemoveCart(int id)
+        {
+            //Get the cart
+            var cartItem = _contextDB.Tab_Cart.Single(cart => cart.CartId == ShoppingCartId && cart.RecordId == id);
+
+            int itemCount = 0;
+
+            if (cartItem is not null)
+            {
+                if(cartItem.Count > 1)
+                {
+                    cartItem.Count--;
+                    itemCount = cartItem.Count;
+                }
+                else
+                {
+                    _contextDB.Tab_Cart.Remove(cartItem);
+                }
+                //Salvar as mudanças
+                _contextDB.SaveChangesAsync();
+            }
+            return itemCount;
+        }
+
     }
 }

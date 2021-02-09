@@ -4,14 +4,16 @@ using MVCMusicStore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVCMusicStore.Migrations
 {
     [DbContext(typeof(MusicStoreEntities))]
-    partial class MusicStoreEntitiesModelSnapshot : ModelSnapshot
+    [Migration("20210208204622_CartMigra")]
+    partial class CartMigra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
