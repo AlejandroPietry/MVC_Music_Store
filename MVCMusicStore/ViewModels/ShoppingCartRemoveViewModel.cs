@@ -1,0 +1,18 @@
+﻿using MVCMusicStore.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MVCMusicStore.ViewModels
+{
+    // usado para exibir informações de confirmação quando um usuário remover algo do carrinho.
+    public class ShoppingCartRemoveViewModel
+    {
+        public string Message { get; set; }
+        public decimal CartTotal { get; set; }
+        public int CartCount { get; set; }
+        public int IntemCount { get; set; }
+        public int DeleteId { get; set; }
+    }
+}
