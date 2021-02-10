@@ -30,12 +30,10 @@ namespace MVCMusicStore.Models
         }
 
         /// <summary>
-        /// é um método estático que permite que nossos controladores obtenham um objeto de carrinho.
+        /// É um método estático que permite que nossos controladores obtenham um objeto de carrinho.
         /// Ele usa o método Getcarrinhoid para lidar com a leitura de cartid a partir da sessão do usuário.
         /// O método getcarrinhoid requer o HttpContextBase para que ele possa ler o Carrinhoid do usuário a partir da sessão do usuário.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
         public static ShoppingCart GetCart(HttpContext context)
         {
             var cart = new ShoppingCart();
@@ -98,10 +96,9 @@ namespace MVCMusicStore.Models
         }
 
         /// <summary>
-        ///  usa uma ID de álbum e a remove do carrinho do usuário. Se o usuário tiver apenas uma cópia do álbum em seu carrinho, a linha será removida.
+        ///  Usa uma ID de álbum e a remove do carrinho do usuário. Se o usuário tiver apenas uma cópia do álbum em seu carrinho, a linha será removida.
         /// </summary>
         /// <param name="id">Id do album</param>
-        /// <returns></returns>
         public int RemoveFromCart(int id)
         {
             //Get the cart
@@ -127,7 +124,7 @@ namespace MVCMusicStore.Models
         }
 
         /// <summary>
-        /// remove todos os itens do carrinho de compras de um usuário.
+        /// Remove todos os itens do carrinho de compras de um usuário.
         /// </summary>
         public void EmptyCart()
         {
@@ -142,7 +139,7 @@ namespace MVCMusicStore.Models
         }
 
         /// <summary>
-        /// recupera uma lista de CartItems para exibição ou processamento.
+        /// Recupera uma lista de CartItems para exibição ou processamento.
         /// </summary>
         public List<Cart> GetCartItems()
         {
@@ -150,9 +147,8 @@ namespace MVCMusicStore.Models
         }
 
         /// <summary>
-        /// recupera um número total de álbuns que um usuário tem em seu carrinho de compras.
+        /// Recupera um número total de álbuns que um usuário tem em seu carrinho de compras.
         /// </summary>
-        /// <returns></returns>
         public int GetCount()
         {
             //Pega o itens no carrinho e soma eles
@@ -163,6 +159,9 @@ namespace MVCMusicStore.Models
             return count ?? 0;
         }
 
+        /// <summary>
+        /// Calcula o custo total de todos os itens no carrinho.
+        /// </summary>
         public decimal GetTotal()
         {
 
@@ -177,6 +176,10 @@ namespace MVCMusicStore.Models
             return total ?? decimal.Zero;
         }
 
+        /// <summary>
+        /// Converte o carrinho de compras em um pedido durante a fase de check-out.
+        /// </summary>
+        /// <returns>retorna o OrderId como numero de confirmacao</returns>
         public int CreateOrder(Order order)
         {
             decimal orderTotal = 0;
