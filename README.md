@@ -12,6 +12,7 @@ O aplicativo que foi criado é uma loja de música simples. Há três partes pri
 - Entity Framework core<br/>
 - Asp Net Core<br/>
 - .Net 5.0
+- Asp Net Identity
 - Bootstrap 4
 - SQL Server
 
