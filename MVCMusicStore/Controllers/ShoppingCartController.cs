@@ -72,5 +72,17 @@ namespace MVCMusicStore.Controllers
             return Json(results);
         }
 
+        /*Um conceito novo que o ASP.NET MVC 6 traz é o View Components, cuja ideia principal é ser algo parecido com uma partial view,
+         * porém com muito mais recursos como testabilidade, isolamento de conceitos.
+         * Basicamente é possível fazer uma comparação como um mini controller, que é responsável pela renderização de um bloco só da pagina.
+         * Exemplos de uso: dados do usuário, menus customizados, informações de últimos produtos, promoções, algo que possua uma lógica
+         * e implementação um pouco mais complexa que uma Partial View.
+         */
+        public ActionResult CartSummary()
+        {
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+            ViewData["CartCount"] = cart.GetCount();
+            return View("CartSumary");
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,12 @@ namespace MVCMusicStore.Models
 
     public partial class ShoppingCart
     {
-        private MusicStoreEntities _contextDB;
+        private MusicStoreEntities _contextDB = new MusicStoreEntities();
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
 
         public ShoppingCart()
         {
-        }
-
-        public ShoppingCart(MusicStoreEntities context)
-        {
-            _contextDB = context;
         }
 
         /// <summary>
