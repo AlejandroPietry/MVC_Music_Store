@@ -17,12 +17,16 @@ namespace MVCMusicStore.Models
 
     public partial class ShoppingCart
     {
-        private MusicStoreEntities _contextDB = new MusicStoreEntities();
+        private MusicStoreEntities _contextDB;
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
 
         public ShoppingCart()
         {
+        }
+        public ShoppingCart(MusicStoreEntities context)
+        {
+            this._contextDB = context; 
         }
 
         /// <summary>
