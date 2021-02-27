@@ -24,12 +24,12 @@ namespace MVCMusicStore.Controllers
         //GET shoppingCart
         public IActionResult Index()
         {
-            var cart = _shoppingCart.GetCart(this.HttpContext);
+            _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
             var viewModel = new ShoppingCartViewModel
             {
-                CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal()
+                CartItems = _shoppingCart.GetCartItems(),
+                CartTotal = _shoppingCart.GetTotal()
             };
 
             return View(viewModel);
