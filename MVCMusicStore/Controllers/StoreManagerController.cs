@@ -26,7 +26,7 @@ namespace MVCMusicStore.Controllers
         }
 
         // GET: StoreManager/Details/5
-        [Route("Detalhes")]
+        [Route("Detalhes/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
