@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVCMusicStore.Interfaces;
 using MVCMusicStore.Models;
 using MVCMusicStore.ViewModels;
 using System.Text.Encodings.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVCMusicStore.Controllers
 {
@@ -17,15 +14,17 @@ namespace MVCMusicStore.Controllers
     public class ShoppingCartController : Controller
     {
         private MusicStoreEntities _contextDB;
-        public ShoppingCartController(MusicStoreEntities context)
+        private IShoppingCart _shoppingCart;
+        public ShoppingCartController(MusicStoreEntities context, IShoppingCart shoppingCart)
         {
             _contextDB = context;
+            _shoppingCart = shoppingCart;
         }
 
         //GET shoppingCart
         public IActionResult Index()
         {
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = _shoppingCart.GetCart(this.HttpContext);
 
             var viewModel = new ShoppingCartViewModel
             {
@@ -40,7 +39,7 @@ namespace MVCMusicStore.Controllers
         {
             var addedAlbum = _contextDB.Tab_Album.Find(id);
 
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = _shoppingCart.GetCart(this.HttpContext);
 
             cart.AddToCart(addedAlbum);
 
@@ -52,7 +51,7 @@ namespace MVCMusicStore.Controllers
         public IActionResult RemoveFromCart(int id)
         {
             //remove the item from the cart
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = _shoppingCart.GetCart(this.HttpContext);
 
             //get the name of the album to display confimation
             string albumName = _contextDB.Tab_Cart.Find(id).Album.Title;
@@ -80,7 +79,7 @@ namespace MVCMusicStore.Controllers
          */
         public ActionResult CartSummary()
         {
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = _shoppingCart.GetCart(this.HttpContext);
             ViewData["CartCount"] = cart.GetCount();
             return View("CartSumary");
         }

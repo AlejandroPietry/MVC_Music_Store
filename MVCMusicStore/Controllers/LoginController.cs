@@ -14,7 +14,7 @@ namespace MVCMusicStore.Controllers
     {
         public IActionResult Index()
         {
-            //usuario logado ao pode logar dnv :)
+            //usuario logado nao pode logar dnv :)
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");

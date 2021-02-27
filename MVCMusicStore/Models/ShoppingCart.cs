@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MVCMusicStore.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,14 @@ namespace MVCMusicStore.Models
      * quando acessarem o carrinho de compras. Armazenaremos essa ID usando a classe de sessão ASP.NET.
      */
 
-    public partial class ShoppingCart
+    public partial class ShoppingCart : IShoppingCart 
     {
         private MusicStoreEntities _contextDB;
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
 
-        public ShoppingCart()
-        {
-        }
+        public ShoppingCart() { }
+
         public ShoppingCart(MusicStoreEntities context)
         {
             this._contextDB = context; 
@@ -34,7 +34,7 @@ namespace MVCMusicStore.Models
         /// Ele usa o método Getcarrinhoid para lidar com a leitura de cartid a partir da sessão do usuário.
         /// O método getcarrinhoid requer o HttpContextBase para que ele possa ler o Carrinhoid do usuário a partir da sessão do usuário.
         /// </summary>
-        public static ShoppingCart GetCart(HttpContext context)
+        public ShoppingCart GetCart(HttpContext context)
         {
             var cart = new ShoppingCart();
             cart.ShoppingCartId = cart.GetCartId(context);
@@ -42,13 +42,13 @@ namespace MVCMusicStore.Models
         }
 
         //Helper method to simplify shopping cart calls
-        public static ShoppingCart GetCart(Controller controller)
+        public ShoppingCart GetCart(Controller controller)
         {
             return GetCart(controller.HttpContext);
         }
 
         //nos vamos usar o HttpContext para permitir os acessos aos cookies
-        private string GetCartId(HttpContext context)
+        public string GetCartId(HttpContext context)
         {
             if (context.Items[CartSessionKey] is null)
             {

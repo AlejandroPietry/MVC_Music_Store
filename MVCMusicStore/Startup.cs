@@ -6,7 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCMusicStore.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Sqlite.Design ;
+using MVCMusicStore.Interfaces;
 
 namespace MVCMusicStore
 {
@@ -23,7 +24,8 @@ namespace MVCMusicStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<MusicStoreEntities>(options => options.UseSqlServer(Configuration.GetConnectionString("master")));
+            services.AddDbContext<MusicStoreEntities>(options => options.UseSqlite(Configuration.GetConnectionString("master")));
+            services.AddScoped<IShoppingCart, ShoppingCart>();
             //adicionando servico de cookie na aplicacao 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Login/Index");
         }
