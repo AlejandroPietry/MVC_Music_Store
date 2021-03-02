@@ -15,8 +15,11 @@
                 <p>Artista: @album.Artist.Name</p>
             </div>
             <div class="card-footer">
-                <a href="@Url.Action("Details","Store", new {id = album.AlbumId})">
-                    <button class="btn btn-primary">Comprar</button>
+                <a href="@Url.Action("Details","Store", new {id = album.AlbumId})" class="btn btn-primary">
+                    Comprar
+                </a>
+                <a class="btn btn-info">
+                    <img src="https://image.flaticon.com/icons/png/512/57/57451.png" alt="Carrinho de compras" style="height: 20px; width: 20px"/>
                 </a>
             </div>
         </div>
