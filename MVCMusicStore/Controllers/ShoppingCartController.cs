@@ -42,8 +42,8 @@ namespace MVCMusicStore.Controllers
             _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
             _shoppingCart.AddToCart(addedAlbum);
-
-            return RedirectToAction("Index");
+            
+            return Ok(_shoppingCart.GetCount());
         }
 
         //AJAX: /ShoppingCart/RemoveFromCart/5

@@ -1,0 +1,5 @@
+﻿
+function AddToCart(idAlbum) {
+    $ajax
+
+}
