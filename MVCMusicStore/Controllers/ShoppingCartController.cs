@@ -39,9 +39,9 @@ namespace MVCMusicStore.Controllers
         {
             var addedAlbum = _contextDB.Tab_Album.Find(id);
 
-            var cart = _shoppingCart.GetCart(this.HttpContext);
+            _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
-            cart.AddToCart(addedAlbum);
+            _shoppingCart.AddToCart(addedAlbum);
 
             return RedirectToAction("Index");
         }
@@ -51,20 +51,20 @@ namespace MVCMusicStore.Controllers
         public IActionResult RemoveFromCart(int id)
         {
             //remove the item from the cart
-            var cart = _shoppingCart.GetCart(this.HttpContext);
+            _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
             //get the name of the album to display confimation
             string albumName = _contextDB.Tab_Cart.Find(id).Album.Title;
 
             //remove from the cart
-            int itemCount = cart.RemoveFromCart(id);
+            int itemCount = _shoppingCart.RemoveFromCart(id);
 
             //Display the confirmation message
             var results = new ShoppingCartRemoveViewModel
             {
                 Message = HtmlEncoder.Default.Encode(albumName) + "Foi removido do seu carrinho de compras!",
-                CartTotal = cart.GetTotal(),
-                CartCount = cart.GetCount(),
+                CartTotal = _shoppingCart.GetTotal(),
+                CartCount = _shoppingCart.GetCount(),
                 ItemCount = itemCount,
                 DeleteId = id
             };
@@ -79,8 +79,8 @@ namespace MVCMusicStore.Controllers
          */
         public ActionResult CartSummary()
         {
-            var cart = _shoppingCart.GetCart(this.HttpContext);
-            ViewData["CartCount"] = cart.GetCount();
+            _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
+            ViewData["CartCount"] = _shoppingCart.GetCount();
             return View("CartSumary");
         }
     }

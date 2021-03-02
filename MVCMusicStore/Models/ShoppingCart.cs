@@ -38,6 +38,7 @@ namespace MVCMusicStore.Models
         {
             var cart = new ShoppingCart();
             cart.ShoppingCartId = cart.GetCartId(context);
+            cart._contextDB = _contextDB;
             return cart;
         }
 
@@ -170,8 +171,8 @@ namespace MVCMusicStore.Models
             // some todos os totais de preço do álbum para obter o total do carrinho
             decimal? total = (from cartItems in _contextDB.Tab_Cart
                               where cartItems.CartId == ShoppingCartId
-                              select (int?)cartItems.Count *
-                              cartItems.Album.Price).Sum();
+                              select (decimal?)cartItems.Count *
+                              cartItems.Album.Price).ToList().Sum();
 
             return total ?? decimal.Zero;
         }
