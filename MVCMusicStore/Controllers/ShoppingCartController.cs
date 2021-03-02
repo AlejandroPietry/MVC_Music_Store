@@ -35,6 +35,7 @@ namespace MVCMusicStore.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
         public IActionResult AddToCart(int id)
         {
             var addedAlbum = _contextDB.Tab_Album.Find(id);
