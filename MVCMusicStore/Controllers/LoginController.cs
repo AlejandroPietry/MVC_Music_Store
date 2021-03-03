@@ -7,11 +7,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Collections.Generic;
 using System;
+using MVCMusicStore.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVCMusicStore.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly MusicStoreEntities _context;
+        public LoginController(MusicStoreEntities context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             //usuario logado nao pode logar dnv :)
@@ -23,19 +30,25 @@ namespace MVCMusicStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(Usuario usuario)
+        public IActionResult Index(LoginViewModel login)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (usuario.Login == "alevrauvrau" && usuario.Senha == "ale123")
+                    Usuario usuario =  _context.Tab_Usuario.FirstOrDefaultAsync(x => x.Login == login.Login &&
+                        x.Senha == login.Senha).Result;
+                    if(usuario != null)
                     {
-                        Login(usuario);
-                        RedirectToAction("Index", "Home");
+                        if (login.Login == "alevrauvrau" && login.Senha == "ale123")
+                        {
+                            Login(usuario);
+                            RedirectToAction("Index", "Home");
+                        }
+                        else
+                            ViewBag.Erro = "Usuario ou senha incorretos";
                     }
-                    else
-                        ViewBag.Erro = "Usuario ou senha incorretos";
+                    ViewBag.Erro = "Ocorreu um erro ao tentar se logar! Tente novamente dentro de alguns meses!";
                 }
             }            
             catch(Exception)
@@ -49,8 +62,9 @@ namespace MVCMusicStore.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, usuario.Login),
+                new Claim(ClaimTypes.Name, usuario.Nome),
                 new Claim(ClaimTypes.Role, "Usuario_Comum")
+                new Claim(ClaimTypes.)
             };
 
             var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
