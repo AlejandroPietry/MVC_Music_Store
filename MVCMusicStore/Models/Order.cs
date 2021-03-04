@@ -9,6 +9,7 @@ namespace MVCMusicStore.Models
     public class Order
     {
         public int OrderId { get; set; }
+        public int UsuarioId { get; set; }
         public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

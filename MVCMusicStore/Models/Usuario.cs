@@ -20,12 +20,12 @@ namespace MVCMusicStore.Models
         public string Senha { get; set; }
         
         [Display(Name = "Nome do Usuário")]
-        //[Required(ErrorMessage = "Nome é obrigatorio!", AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Nome é obrigatorio!", AllowEmptyStrings = false)]
         [StringLength(200)]
         public string Nome { get; set; }
 
         [Display(Name = "Email do usuário")]
-        //[Required(ErrorMessage = "Email é obrigatorio!", AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Email é obrigatorio!", AllowEmptyStrings = false)]
         [StringLength(200)]
         public string Email { get; set; }
 

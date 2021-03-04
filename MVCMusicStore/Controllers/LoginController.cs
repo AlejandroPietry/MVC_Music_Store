@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using MVCMusicStore.Models;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Collections.Generic;
-using System;
-using MVCMusicStore.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MVCMusicStore.Code.Util;
+using MVCMusicStore.Models;
+using MVCMusicStore.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace MVCMusicStore.Controllers
 {
@@ -40,7 +39,7 @@ namespace MVCMusicStore.Controllers
                         x.Senha == login.Senha).Result;
                     if(usuario != null)
                     {
-                        if (login.Login == "alevrauvrau" && login.Senha == "ale123")
+                        if (login.Login == usuario.Login && Helper.PasswordHash(login.Senha) == Helper.PasswordHash(usuario.Senha))
                         {
                             Login(usuario);
                             RedirectToAction("Index", "Home");
@@ -64,7 +63,6 @@ namespace MVCMusicStore.Controllers
             {
                 new Claim(ClaimTypes.Name, usuario.Nome),
                 new Claim(ClaimTypes.Role, "Usuario_Comum")
-                new Claim(ClaimTypes.)
             };
 
             var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
