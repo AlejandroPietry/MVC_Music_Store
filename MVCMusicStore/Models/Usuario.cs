@@ -9,6 +9,8 @@ namespace MVCMusicStore.Models
     public class Usuario
     {
         public int UsuarioId { get; set; }
+
+        public string Login { get; set; }
         
         [Display(Name = "Senha")]
         [Required(ErrorMessage = "Senha deve ser inserida!", AllowEmptyStrings = false)]

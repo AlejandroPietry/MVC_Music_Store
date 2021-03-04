@@ -35,22 +35,17 @@ namespace MVCMusicStore.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Usuario usuario =  _context.Tab_Usuario.FirstOrDefaultAsync(x => x.Email == userLogin.Email &&
-                        x.Password == userLogin.Password).Result;
-                    if(usuario != null)
+                    Usuario usuario = _context.Tab_Usuario.FirstOrDefaultAsync(x => x.Email == userLogin.Email &&
+                       x.Password == userLogin.Password).Result;
+                    if (usuario != null)
                     {
-                        if (userLogin.Email == usuario.Email && Helper.PasswordHash(userLogin.Password) == Helper.PasswordHash(usuario.Password))
-                        {
-                            Login(usuario);
-                            RedirectToAction("Index", "Home");
-                        }
-                        else
-                            ViewBag.Erro = "Usuario ou senha incorretos";
+                        Login(usuario);
+                        RedirectToAction("Index", "Home");
                     }
-                    ViewBag.Erro = "Ocorreu um erro ao tentar se logar! Tente novamente dentro de alguns meses!";
+                    ViewBag.Erro = "Usuario ou senha incorretos";
                 }
-            }            
-            catch(Exception)
+            }
+            catch (Exception)
             {
                 ViewBag.Erro = "Ocorreu um erro ao tentar se logar! Tente novamente dentro de alguns meses!";
             }
@@ -70,9 +65,9 @@ namespace MVCMusicStore.Controllers
             if (!ModelState.IsValid)
                 return View("CreateNewUser", usuario);
 
-            usuario.Password = Helper.PasswordHash(usuario.Password);
-            _context.Add(usuario);
-            _context.SaveChangesAsync();
+            usuario.Login = usuario.Email;
+            _context.Tab_Usuario.Add(usuario);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
         private async void Login(Usuario usuario)

@@ -43,7 +43,7 @@ namespace MVCMusicStore.Controllers
             _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
             _shoppingCart.AddToCart(addedAlbum);
-            
+
             return Ok(_shoppingCart.GetCount());
         }
 
