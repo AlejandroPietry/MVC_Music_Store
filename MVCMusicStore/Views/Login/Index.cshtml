@@ -26,16 +26,17 @@
 
         <fieldset style="width: 40%;">
             <br />
-            <input type="text" class="form-control" name="Login" placeholder="Digite seu login..." />
-            @Html.ValidationMessageFor(model => model.Login)
+            <input type="text" class="form-control" name="Login" placeholder="Digite seu email..." />
+            @Html.ValidationMessageFor(model => model.Email)
             <br />
             <br />
             <br />
             <input type="password" class="form-control" name="Senha" placeholder="Digite sua senha..." />
-            @Html.ValidationMessageFor(model => model.Senha)
+            @Html.ValidationMessageFor(model => model.Password)
             <br />
             <br />
             <br />
+            <a class="btn btn-primary" asp-action="CreateUser" type="button">Criar conta</a>
             <button type="submit" class="btn btn-primary" style="background-color: mediumseagreen; border: none;">Logar</button>
             <br /><br /><br />
 

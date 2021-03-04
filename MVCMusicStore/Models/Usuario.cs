@@ -10,14 +10,11 @@ namespace MVCMusicStore.Models
     {
         public int UsuarioId { get; set; }
         
-        [Required(ErrorMessage = "Login deve ser inserido!", AllowEmptyStrings = false)]
-        [StringLength(100)]
-        public string Login { get; set; }
-        
+        [Display(Name = "Senha")]
         [Required(ErrorMessage = "Senha deve ser inserida!", AllowEmptyStrings = false)]
         [DataType(DataType.Password)]
-        [StringLength(100)]
-        public string Senha { get; set; }
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "Tem que ter no minimo 8 caracteres!")]
+        public string Password { get; set; }
         
         [Display(Name = "Nome do Usuário")]
         [Required(ErrorMessage = "Nome é obrigatorio!", AllowEmptyStrings = false)]
@@ -26,6 +23,7 @@ namespace MVCMusicStore.Models
 
         [Display(Name = "Email do usuário")]
         [Required(ErrorMessage = "Email é obrigatorio!", AllowEmptyStrings = false)]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Email no formato inválido")]
         [StringLength(200)]
         public string Email { get; set; }
 

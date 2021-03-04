@@ -29,17 +29,17 @@ namespace MVCMusicStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(LoginViewModel login)
+        public IActionResult Index(LoginViewModel userLogin)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Usuario usuario =  _context.Tab_Usuario.FirstOrDefaultAsync(x => x.Login == login.Login &&
-                        x.Senha == login.Senha).Result;
+                    Usuario usuario =  _context.Tab_Usuario.FirstOrDefaultAsync(x => x.Email == userLogin.Email &&
+                        x.Password == userLogin.Password).Result;
                     if(usuario != null)
                     {
-                        if (login.Login == usuario.Login && Helper.PasswordHash(login.Senha) == Helper.PasswordHash(usuario.Senha))
+                        if (userLogin.Email == usuario.Email && Helper.PasswordHash(userLogin.Password) == Helper.PasswordHash(usuario.Password))
                         {
                             Login(usuario);
                             RedirectToAction("Index", "Home");
@@ -57,6 +57,24 @@ namespace MVCMusicStore.Controllers
             return View();
         }
 
+        [Route("CriarUsuario")]
+        public IActionResult CreateUser()
+        {
+            return View("CreateNewUser");
+        }
+
+        [HttpPost]
+        [Route("CriarUsuario")]
+        public IActionResult CreateUser(Usuario usuario)
+        {
+            if (!ModelState.IsValid)
+                return View("CreateNewUser", usuario);
+
+            usuario.Password = Helper.PasswordHash(usuario.Password);
+            _context.Add(usuario);
+            _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
         private async void Login(Usuario usuario)
         {
             var claims = new List<Claim>
@@ -65,7 +83,7 @@ namespace MVCMusicStore.Controllers
                 new Claim(ClaimTypes.Role, "Usuario_Comum")
             };
 
-            var identidadeDeUsuario = new ClaimsIdentity(claims, "Login");
+            var identidadeDeUsuario = new ClaimsIdentity(claims, "Email");
 
             ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(identidadeDeUsuario);
 

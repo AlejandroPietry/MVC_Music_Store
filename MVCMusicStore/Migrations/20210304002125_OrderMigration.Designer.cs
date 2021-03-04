@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCMusicStore.Migrations
 {
     [DbContext(typeof(MusicStoreEntities))]
-    [Migration("20210227135505_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20210304002125_OrderMigration")]
+    partial class OrderMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -155,6 +155,9 @@ namespace MVCMusicStore.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("OrderId");
 
                     b.ToTable("Tab_Order");
@@ -199,6 +202,7 @@ namespace MVCMusicStore.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
@@ -208,6 +212,7 @@ namespace MVCMusicStore.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
