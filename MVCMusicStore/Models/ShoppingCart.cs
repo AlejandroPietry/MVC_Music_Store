@@ -144,7 +144,7 @@ namespace MVCMusicStore.Models
         /// </summary>
         public List<Cart> GetCartItems()
         {
-            return _contextDB.Tab_Cart.Where(cart => cart.CartId == ShoppingCartId).ToList();
+            return _contextDB.Tab_Cart.Include("Album").Where(cart => cart.CartId == ShoppingCartId).ToList();
         }
 
         /// <summary>

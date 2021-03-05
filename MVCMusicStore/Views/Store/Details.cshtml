@@ -13,7 +13,8 @@
         </div>
         <div class="form-group">
             <h6>R$ @Model.Price</h6>
-            <button class="btn btn-warning">Buy</button>
+            <button class="btn btn-warning">Comprar</button>
+            <a class="btn btn-success" href="@Url.Action("AddToCart","ShoppingCart", new {id = Model.AlbumId })"><img src="https://image.flaticon.com/icons/png/512/57/57451.png" alt="Carrinho de compras" style="height: 20px; width: 20px" /></a>
         </div>
     </div>
 </div>

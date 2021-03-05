@@ -35,7 +35,6 @@ namespace MVCMusicStore.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
         public IActionResult AddToCart(int id)
         {
             var addedAlbum = _contextDB.Tab_Album.Find(id);
@@ -44,7 +43,7 @@ namespace MVCMusicStore.Controllers
 
             _shoppingCart.AddToCart(addedAlbum);
 
-            return Ok(_shoppingCart.GetCount());
+            return RedirectToAction(nameof(Index));
         }
 
         //AJAX: /ShoppingCart/RemoveFromCart/5
