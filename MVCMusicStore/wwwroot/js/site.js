@@ -3,15 +3,13 @@
 
 // Write your JavaScript code.
 
-function AddToCart(albumId) {
-    console.log(albumId);
+window.onload = function () {
     $.ajax({
-        url: "/ShoppingCart/AddToCart",
-        method: "POST",
-        data: { id : albumId }
+        url: "/ShoppingCart/GetCount",
+        method: "GET",
     }).done(function (qtdItems) {
         document.getElementById("cartCount").innerText = qtdItems;
-        })
+    })
 }
 
 $(function () {

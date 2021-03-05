@@ -47,6 +47,12 @@ namespace MVCMusicStore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public int GetCount()
+        {
+            _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
+            return _shoppingCart.GetCount();
+        }
+
         //AJAX: /ShoppingCart/RemoveFromCart/5
         [HttpPost]
         public IActionResult RemoveFromCart(int id)
