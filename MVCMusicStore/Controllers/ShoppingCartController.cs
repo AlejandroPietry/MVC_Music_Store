@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVCMusicStore.Interfaces;
 using MVCMusicStore.Models;
 using MVCMusicStore.ViewModels;
@@ -54,7 +55,8 @@ namespace MVCMusicStore.Controllers
             _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
             //get the name of the album to display confimation
-            string albumName = _contextDB.Tab_Cart.Find(id).Album.Title;
+            string albumName = _contextDB.Tab_Cart.Include("Album")
+                .FirstOrDefaultAsync(x => x.RecordId == id).Result.Album.Title;
 
             //remove from the cart
             int itemCount = _shoppingCart.RemoveFromCart(id);
