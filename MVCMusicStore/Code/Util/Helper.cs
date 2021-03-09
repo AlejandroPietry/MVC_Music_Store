@@ -8,6 +8,11 @@ namespace MVCMusicStore.Code.Util
 {
     public class Helper
     {
+        /// <summary>
+        /// Por enquanto ta inutil hehe
+        /// </summary>
+        /// <param name="password">A senha que vc que o hash</param>
+        /// <returns></returns>
         public static string PasswordHash(string password)
         {
             return string.Empty;

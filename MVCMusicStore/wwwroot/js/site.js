@@ -36,3 +36,14 @@ $(function () {
         }
     });
 });
+
+
+function AbrirModalCompra() {
+    $.ajax({
+        url: "/Payment/Index",
+        method: "GET"
+    }).done(function (htmlModal) {
+        document.getElementById("modalHtml").innerHTML = htmlModal;
+        $("#modalHtml").show();
+    })
+}

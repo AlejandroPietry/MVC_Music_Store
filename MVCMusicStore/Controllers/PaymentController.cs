@@ -10,7 +10,7 @@ namespace MVCMusicStore.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return PartialView("IndexModal");
         }
     }
 }
