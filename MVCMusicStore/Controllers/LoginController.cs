@@ -62,6 +62,10 @@ namespace MVCMusicStore.Controllers
         [Route("CriarUsuario")]
         public IActionResult CreateUser(Usuario usuario)
         {
+            Usuario userOnDb = _context.Tab_Usuario.SingleAsync(x => x.Email == usuario.Email).Result;
+
+            if (userOnDb != null)
+                return View("CreateNewUser", usuario);
             if (!ModelState.IsValid)
                 return View("CreateNewUser", usuario);
 
@@ -74,8 +78,9 @@ namespace MVCMusicStore.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, usuario.Nome),
-                new Claim(ClaimTypes.Role, "Usuario_Comum")
+                new Claim(ClaimTypes.Name, usuario.Email),
+                new Claim(ClaimTypes.Role, "Usuario_Comum"),
+                new Claim(ClaimTypes.Email, usuario.Email)
             };
 
             var identidadeDeUsuario = new ClaimsIdentity(claims, "Email");

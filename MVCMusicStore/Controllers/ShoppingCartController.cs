@@ -4,6 +4,7 @@ using MVCMusicStore.Interfaces;
 using MVCMusicStore.Models;
 using MVCMusicStore.ViewModels;
 using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace MVCMusicStore.Controllers
 {
@@ -36,15 +37,20 @@ namespace MVCMusicStore.Controllers
             return View(viewModel);
         }
 
-        public IActionResult AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int id)
         {
-            var addedAlbum = _contextDB.Tab_Album.Find(id);
+            if (this.HttpContext.User.Identity.IsAuthenticated)
+            {
+                var addedAlbum = _contextDB.Tab_Album.Find(id);
 
-            _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
+                _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
-            _shoppingCart.AddToCart(addedAlbum);
+                _shoppingCart.AddToCart(addedAlbum);
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "Login");
+
         }
 
         public int GetCount()
