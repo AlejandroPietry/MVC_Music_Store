@@ -40,7 +40,7 @@ namespace MVCMusicStore.Controllers
                     if (usuario != null)
                     {
                         Login(usuario);
-                        RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
                     }
                     ViewBag.Erro = "Usuario ou senha incorretos";
                 }

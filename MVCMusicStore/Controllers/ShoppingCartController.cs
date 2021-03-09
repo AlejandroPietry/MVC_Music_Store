@@ -26,6 +26,9 @@ namespace MVCMusicStore.Controllers
         //GET shoppingCart
         public IActionResult Index()
         {
+            if (!this.HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Login");
+
             _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
             var viewModel = new ShoppingCartViewModel
@@ -76,7 +79,7 @@ namespace MVCMusicStore.Controllers
             //Display the confirmation message
             var results = new ShoppingCartRemoveViewModel
             {
-                Message = HtmlEncoder.Default.Encode(albumName) + "Foi removido do seu carrinho de compras!",
+                Message = albumName + "Foi removido do seu carrinho de compras!",
                 CartTotal = _shoppingCart.GetTotal(),
                 CartCount = _shoppingCart.GetCount(),
                 ItemCount = itemCount,
