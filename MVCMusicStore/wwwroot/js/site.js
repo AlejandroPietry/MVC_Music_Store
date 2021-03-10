@@ -50,11 +50,9 @@ function AbrirModalCompra() {
 
 
 function BuscarDadosCep(numCep) {
-    console.log(numCep)
     fetch("https://viacep.com.br/ws/"+  numCep +"/json/")
         .then(response => response.json())
         .then(json => (
-            console.log("json", json),
             document.getElementById("Adress").value = json.logradouro + ", " + json.bairro + ", " + json.complemento,
             document.getElementById("City").value = json.localidade + "/" + json.uf,
             document.getElementById("PostalCode").value = json.cep
