@@ -54,6 +54,5 @@
     </tr>
 </table>
 
-<button class="btn btn-warning" onclick="AbrirModalCompra()">Ir para compra</button>
-<h1 id="modalHtml"></h1>
-@await Html.PartialAsync("~/Views/Payment/IndexModal.cshtml")
+<a class="btn btn-warning" href="@Url.Action("Index", "Payment")">Ir para compra</a>
+

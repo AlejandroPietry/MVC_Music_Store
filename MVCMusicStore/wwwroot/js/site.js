@@ -47,3 +47,20 @@ function AbrirModalCompra() {
         $("#modalHtml").show();
     })
 }
+
+
+function BuscarDadosCep(numCep) {
+    console.log(numCep)
+    fetch("https://viacep.com.br/ws/"+  numCep +"/json/")
+        .then(response => response.json())
+        .then(json => (
+            console.log("json", json),
+            document.getElementById("Adress").value = json.logradouro + ", " + json.bairro + ", " + json.complemento,
+            document.getElementById("City").value = json.localidade + "/" + json.uf,
+            document.getElementById("PostalCode").value = json.cep
+        ));
+}
+
+function MascaraCpf(cpf) {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3-\$4");
+}

@@ -11,6 +11,7 @@ namespace MVCMusicStore.Models
     {
         public int OrderId { get; set; }
         public int UsuarioId { get; set; }
+        [Display(Name = "Cpf")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Obrigatório")]
