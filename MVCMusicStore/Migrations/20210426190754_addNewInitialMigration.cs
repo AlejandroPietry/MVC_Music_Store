@@ -3,10 +3,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVCMusicStore.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class addNewInitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "OnlineLogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IdUsuario = table.Column<int>(type: "INTEGER", nullable: false),
+                    LastHeartBeat = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnlineLogs", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Tab_Artist",
                 columns: table => new
@@ -40,15 +54,16 @@ namespace MVCMusicStore.Migrations
                 {
                     OrderId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: false),
                     Username = table.Column<string>(type: "TEXT", nullable: true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    Adress = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Adress = table.Column<string>(type: "TEXT", maxLength: 300, nullable: false),
+                    City = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     State = table.Column<string>(type: "TEXT", nullable: true),
-                    PostalCode = table.Column<string>(type: "TEXT", nullable: true),
+                    PostalCode = table.Column<string>(type: "TEXT", maxLength: 8, nullable: false),
                     Country = table.Column<string>(type: "TEXT", nullable: true),
-                    Phone = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -64,10 +79,10 @@ namespace MVCMusicStore.Migrations
                 {
                     UsuarioId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Login = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Senha = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Nome = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true)
+                    Login = table.Column<string>(type: "TEXT", nullable: true),
+                    Password = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Nome = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,6 +208,9 @@ namespace MVCMusicStore.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "OnlineLogs");
+
             migrationBuilder.DropTable(
                 name: "Tab_Cart");
 

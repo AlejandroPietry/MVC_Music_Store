@@ -7,6 +7,7 @@ using MVCMusicStore.Models;
 using MVCMusicStore.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 
 namespace MVCMusicStore.Controllers
@@ -39,13 +40,24 @@ namespace MVCMusicStore.Controllers
                        x.Password == userLogin.Password).Result;
                     if (usuario != null)
                     {
+                        var lastHeartBeat = _context.OnlineLogs.Where(x => x.IdUsuario == usuario.UsuarioId).OrderByDescending(x => x.LastHeartBeat).FirstOrDefault();
+
+                        if(lastHeartBeat != null)
+                        {
+                            if (lastHeartBeat.IsOnlineNow())
+                            {
+                                ViewBag.Erro = "Usuario ja esta logado em outra maquina.";
+                                return View();
+                            }
+                        }
+
                         Login(usuario);
                         return RedirectToAction("Index", "Home");
                     }
                     ViewBag.Erro = "Usuario ou senha incorretos";
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 ViewBag.Erro = "Ocorreu um erro ao tentar se logar! Tente novamente dentro de alguns meses!";
             }
@@ -62,7 +74,7 @@ namespace MVCMusicStore.Controllers
         [Route("CriarUsuario")]
         public IActionResult CreateUser(Usuario usuario)
         {
-            Usuario userOnDb = _context.Tab_Usuario.SingleAsync(x => x.Email == usuario.Email).Result;
+            Usuario userOnDb = _context.Tab_Usuario.FirstOrDefault(x => x.Email == usuario.Email);
 
             if (userOnDb != null)
                 return View("CreateNewUser", usuario);
@@ -80,7 +92,8 @@ namespace MVCMusicStore.Controllers
             {
                 new Claim(ClaimTypes.Name, usuario.Email),
                 new Claim(ClaimTypes.Role, "Usuario_Comum"),
-                new Claim(ClaimTypes.Email, usuario.Email)
+                new Claim(ClaimTypes.Email, usuario.Email),
+                new Claim(ClaimTypes.SerialNumber, usuario.UsuarioId.ToString())
             };
 
             var identidadeDeUsuario = new ClaimsIdentity(claims, "Email");
@@ -103,6 +116,24 @@ namespace MVCMusicStore.Controllers
             Após isso criei um AuthenticationProperties que é onde contém as propriedades de autenticação contendo algumas informações de persistência de dados e afins, entre elas, tempo de expiração, dados persistentes após fechamento do navegador e continuará autenticado mesmo se atualizar a página.
             E por fim nós autenticamos utilizando as informações da ClaimPrincipal e as configurações de AuthenticationProperties.
              */
+        }
+
+
+        public void SalvarHeartBeat()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var a = HttpContext.User.Claims.First(x => x.Type == ClaimTypes.SerialNumber);
+
+                OnlineLog onlineLog = new OnlineLog
+                {
+                    IdUsuario = int.Parse(a.Value),
+                    LastHeartBeat = DateTime.Now
+                };
+
+                _context.OnlineLogs.Add(onlineLog);
+                _context.SaveChanges();
+            }
         }
     }
 }

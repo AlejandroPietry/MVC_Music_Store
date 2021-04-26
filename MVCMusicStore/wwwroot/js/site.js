@@ -10,6 +10,19 @@ window.onload = function () {
     }).done(function (qtdItems) {
         document.getElementById("cartCount").innerText = qtdItems;
     })
+
+
+    console.log("fazendo loopp biscoito   ", document.cookie.length)
+
+    setInterval(function () {
+        $.ajax({
+            url: "/login/SalvarHeartBeat",
+            method: "GET"
+        })
+    }, 5000);
+
+
+
 }
 
 $(function () {
@@ -50,7 +63,7 @@ function AbrirModalCompra() {
 
 
 function BuscarDadosCep(numCep) {
-    fetch("https://viacep.com.br/ws/"+  numCep +"/json/")
+    fetch("https://viacep.com.br/ws/" + numCep + "/json/")
         .then(response => response.json())
         .then(json => (
             document.getElementById("Adress").value = json.logradouro + ", " + json.bairro + ", " + json.complemento,

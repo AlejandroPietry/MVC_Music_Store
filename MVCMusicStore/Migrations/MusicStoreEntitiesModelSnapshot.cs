@@ -111,6 +111,23 @@ namespace MVCMusicStore.Migrations
                     b.ToTable("Tab_Genre");
                 });
 
+            modelBuilder.Entity("MVCMusicStore.Models.OnlineLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastHeartBeat")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OnlineLogs");
+                });
+
             modelBuilder.Entity("MVCMusicStore.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -118,9 +135,13 @@ namespace MVCMusicStore.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasMaxLength(300)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Country")
@@ -130,18 +151,25 @@ namespace MVCMusicStore.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("State")
@@ -205,8 +233,6 @@ namespace MVCMusicStore.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Login")
-                        .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
